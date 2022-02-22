@@ -1,23 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import Footer from './components/Footer';
+import Goods from './components/Goods';
+import Header from './components/Header';
+import Preloader from './components/Preloader';
 
 function App() {
+  const [shop, seshop] = useState([]);
+  const [loader, setloader] = useState(false);
+  const [order, setOrder] = useState(0);
+
+  useEffect(() => {
+    fetch('https://fortniteapi.io/v2/shop?lang=ru', {
+      headers: {
+        Authorization: 'd2ef5ba7-436bb90f-e92b4526-17a2b707',
+      }
+    }).then(data => data.json())
+      .then(data => {
+
+        if (data.shop.length > 20) {
+          seshop(data.shop.splice(0, 2))
+          setloader(true)
+        }
+        setloader(true)
+      })
+
+  }, [])
+
+  const onOrder = (id) => {
+    console.log(id);
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+
+
+      <div className='shop-items' >
+        {
+          !loader ?
+            <Preloader /> :
+            <Goods shop={shop} onOrderCart={onOrder} />
+
+        }
+      </div>
+
+
+      <Footer />
+
     </div>
   );
 }

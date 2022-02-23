@@ -1,44 +1,62 @@
-import React, { useState } from 'react';
+import React from 'react';
+
 
 const Goods = ({ shop, onOrderCart }) => {
-
     return (
         <>
             {
                 shop.map(el => {
-                    return el.granted.map(good => {
-                        console.log(good);
+                    return (
 
-                        return (
-                            <div key={good.id} className='shop-item'>
-                                <div className="card">
+                        el.granted.map(good => {
+                            return (
+                                <div key={good.id} className='shop-item'>
+                                    <div className="card">
 
-                                    <div className="card-image">
+                                        <div className="card-image">
+                                            <img src={good.images.background} alt="" />
+                                            <span className="card-title">{good.name}</span>
 
-                                        <img src={good.images.background} />
-                                        <span className="card-title">{good.name}</span>
-                                        <a className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => onOrderCart(good.id)}><i className="material-icons">+</i></a>
-                                    </div>
+                                        </div>
 
-                                    <div className="card-content">
-                                        <p>{good.description}</p>
-                                        <div className='price'>
-                                            <div className='price-new'>
-                                                Последняя цена:
-                                                <span> {el.price.finalPrice} руб.</span>
-                                            </div>
-                                            <div className='price-old'>
-                                                Старая цена: <span>{el.price.regularPrice} руб.</span>
+                                        <div className="card-content">
+                                            <p>{good.description}</p>
+                                            <div className='price'>
+                                                <div className="price-box">
+                                                    <div className='price-new'>
+                                                        <span> {el.price.finalPrice} руб.</span>
+                                                    </div>
+                                                    <div className='price-old'>
+                                                        {
+                                                            el.price.finalPrice !== el.price.regularPrice && <span>{el.price.regularPrice} руб.</span>
+                                                        }
+                                                    </div>
+
+                                                </div>
+                                                <span
+                                                    className="btn-buy btn-floating halfway-fab waves-effect waves-light red"
+                                                    onClick={() => onOrderCart(
+                                                        good.id,
+                                                        good.name,
+                                                        good.description,
+                                                        el.price.finalPrice,
+                                                        good.images.background
+                                                    )}>
+                                                    В корзину
+                                                </span>
 
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            )
+                        }
                         )
-                    }
+
                     )
+
+
                 })
             }
         </>

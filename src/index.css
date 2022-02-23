@@ -11,12 +11,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.shop-items{
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.App{
+  display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh
+}
+.container{
   max-width: 1140px;
   width: 100%;
   padding: 0 10px;
   margin: 0 auto;
+}
+.header{
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  top: 0;
+}
+
+.shop-items{
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -41,6 +60,9 @@ code {
 
 .price {
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .price span{
   color: rgb(228, 74, 74);
@@ -56,7 +78,86 @@ code {
 .price-new{
   font-size: 18px;
 }
+
+
+.btn-buy.btn-floating.halfway-fab{
+  position: static;
+  width: 120px;
+  border-radius: 15px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+
+}
 .nav-wrapper{
   max-width: 1180px;
     margin: 0 auto;
+}
+.cart__icon{
+  position: relative;
+  cursor: pointer;
+}
+.cart__icon a{
+  padding-right: 25px;
+}
+.cart__icon-num{
+  position: absolute;
+  top: 0;
+  right: 10px;
+
+}
+.card-content{
+  min-height: 140px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.basket__item{
+  display: flex;
+  align-items: center;
+  background-color: rgba(208, 224, 238, 0.1);
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid rgba(208, 224, 238, 0.8);
+}
+.basket__item-preview{
+  width: 70px;
+}
+.basket__item-text{
+  margin-left: 15px;
+}
+.btn-basket{
+  margin: 50px 0;
+}
+.main-btn{
+  padding: 12px 30px;
+  border-radius: 15px;
+  background-color: #1565C0;
+  color: aliceblue;
+  box-shadow: 4px 7px 12px 0px rgba(0,0,0, .1);
+  transition: all 0.5s;
+}
+
+.main-btn:hover{
+  box-shadow: 4px 7px 12px 0px rgba(0,0,0, .3);
+}
+
+.categorie{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px 0 50px;
+}
+
+.categorie li {
+  border: 1px dashed #1565C0;
+  border-radius: 25px;
+  padding: 5px;
+  background: rgba(21, 101, 192, 0.1);
+  margin: 5px 10px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.categorie li:hover{
+  transform: scale(1.1) translateY(-5px);
 }

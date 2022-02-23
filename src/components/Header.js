@@ -1,17 +1,18 @@
 import React from 'react';
 import Cart from './Cart';
+import { NavLink } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ order }) => {
     return (
         <header>
             <nav className="blue darken-3">
                 <div className="nav-wrapper">
-                    <a href="#!" className="brand-logo"><i className="material-icons">cloud</i>Цифра магазин</a>
+                    <NavLink to="/" className="brand-logo"><i className="material-icons">cloud</i>Цифра магазин</NavLink>
                     <ul className="right hide-on-med-and-down">
-                        <li><a href="sass.html"><i className="material-icons">search</i></a></li>
-                        <li><a href="badges.html"><i className="material-icons">sms</i></a></li>
-                        <li><a href="collapsible.html"><i className="material-icons">person</i></a></li>
-                        <Cart />
+                        <li><NavLink to="search"><i className="material-icons">search</i></NavLink></li>
+                        <li><NavLink to="contacts"><i className="material-icons">sms</i></NavLink></li>
+                        <li><NavLink to="user"><i className="material-icons">person</i></NavLink></li>
+                        <Cart order={order} />
                     </ul>
                 </div>
             </nav>

@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Basket = ({ goodsInBasket }) => {
-    console.log(goodsInBasket.length === 0);
+const Basket = ({ goodsInBasket, onDelProductBasket }) => {
+
     return (
-        <div className='container'>
+        <div className='app-container'>
             {
                 goodsInBasket.length === 0
                     ?
-                    <div>
+                    <div className='basket-empty'>
                         <h2>В корзине пока ничего нет</h2>
                         <p>Начните с главной страницы или воспользуйтесь поиском, чтобы найти что-то конкретное</p>
 
@@ -32,6 +32,9 @@ const Basket = ({ goodsInBasket }) => {
                                             <span className='basket__item-cost'>
                                                 <b>Стоимость:</b> {el.cost} руб.
                                             </span>
+                                        </div>
+                                        <div className='basket__item-delete' onClick={() => onDelProductBasket(el.id)}>
+                                            удалить
                                         </div>
                                     </li>
                                 )

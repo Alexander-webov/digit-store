@@ -22,40 +22,50 @@ code {
     justify-content: space-between;
     min-height: 100vh
 }
-.container{
+.app-container{
   max-width: 1140px;
   width: 100%;
   padding: 0 10px;
-  margin: 0 auto;
+  margin: 100px auto 0;
 }
 .header{
   position: fixed;
   width: 100%;
-  z-index: 1;
+  z-index: 10;
   top: 0;
+}
+.shop-wrapper{
+  flex: 1;
+
 }
 
 .shop-items{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
 }
 .shop-item{
   max-width: 300px;
   width: 100%;
-  margin: 10px;
+  margin: 15px;
 
+}
+.shop-item .card{
+  margin: 0;
 }
 
 .shop-item img{
   max-width: 300px;
- 
-}
+ }
 
-.card .card-image .card-title{
-  width: 100%;
-  padding: 15px;
-  background-color: rgba(0,0,0, .5);
+.modal-info{
+  position: fixed;
+  right: 0;
+  top: 15%;
+  background: rgba(21, 101, 192, 0.1);
+  padding: 20px   30px;
+  border-radius: 30px;
+  font-weight: 800;
 }
 
 .price {
@@ -92,6 +102,16 @@ code {
   max-width: 1180px;
     margin: 0 auto;
 }
+.card .card-image .card-title{
+  width: 100%;
+  padding: 15px;
+  background-color: rgba(0,0,0, .5);
+}
+.card-title span{
+  display: block;
+  font-size: 14px;
+  color: aquamarine;
+}
 .cart__icon{
   position: relative;
   cursor: pointer;
@@ -112,7 +132,9 @@ code {
   flex-direction: column;
 }
 
+
 .basket__item{
+  max-width: 800px;
   display: flex;
   align-items: center;
   background-color: rgba(208, 224, 238, 0.1);
@@ -126,7 +148,21 @@ code {
 }
 .basket__item-text{
   margin-left: 15px;
+  flex: 1;
 }
+.basket__item-delete{
+  border: 1px solid #d5d5d5;
+  padding: 5px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+.basket-empty h2{
+  font-weight: 700;
+    letter-spacing: -4px;
+}
+
+
+
 .btn-basket{
   margin: 50px 0;
 }
@@ -147,6 +183,8 @@ code {
   display: flex;
   flex-wrap: wrap;
   margin: 20px 0 50px;
+  width: 100%;
+  justify-content: center;
 }
 
 .categorie li {
@@ -156,8 +194,10 @@ code {
   background: rgba(21, 101, 192, 0.1);
   margin: 5px 10px;
   cursor: pointer;
+  box-shadow: 4px 7px 12px 0px rgba(0,0,0, .1);
   transition: all 0.5s;
 }
 .categorie li:hover{
-  transform: scale(1.1) translateY(-5px);
+  transform: translateY(-2px);
+  box-shadow: 4px 7px 12px 0px rgba(0,0,0, .3);
 }

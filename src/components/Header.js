@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 const Header = ({ order }) => {
     return (
-        <header>
+        <header className='header'>
             <nav className="blue darken-3">
                 <div className="nav-wrapper">
                     <NavLink to="/" className="brand-logo"><i className="material-icons">cloud</i>Цифра магазин</NavLink>

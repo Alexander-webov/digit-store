@@ -5,14 +5,19 @@ import Goods from './components/Goods';
 import Header from './components/Header';
 import Preloader from './components/Preloader';
 import { Routes, Route } from "react-router-dom";
+import Modaladdbasket from './components/ModalAddBasket';
 
 
 
 function App() {
   const [shop, setshop] = useState([]);
   const [goodsInBasket, setGoodsInBasket] = useState([]);
+  const [typeProduct, setTypeProduct] = useState([]);
   const [loader, setloader] = useState(false);
   const [order, setOrder] = useState(0);
+  const [categorie, setCategorie] = useState('Все товары');
+  const [modalAddToBasket, setModalAddToBasket] = useState(false);
+
 
 
   useEffect(() => {
@@ -25,12 +30,17 @@ function App() {
         setshop(data.shop.splice(0, 20))
         setloader(true)
       })
-
   }, [])
+
+  useEffect(() => {
+    setTypeProduct(['Все товары', ...new Set(shop.map(type => type.displayType))])
+  }, [shop])
+
+
 
 
   const onOrder = (id, name, description, price, images) => {
-    setOrder(prev => prev + 1)
+    setOrder(goodsInBasket.length + 1)
     const newObjInBasket = {
       id,
       preview: images,
@@ -40,8 +50,22 @@ function App() {
     }
     setGoodsInBasket(rev => [...rev, newObjInBasket])
 
+    setModalAddToBasket(true)
+  }
+  if (modalAddToBasket) {
+    setTimeout(() => {
+      setModalAddToBasket(false)
+    }, 600)
+  }
 
+  const onDelProductBasket = (id) => {
+    const filterArrGoodsInBasket = goodsInBasket.filter(prod => prod.id !== id)
+    setGoodsInBasket([...filterArrGoodsInBasket])
+    setOrder(goodsInBasket.length - 1)
+  }
 
+  const onFilterCategorieGoods = (categor) => {
+    setCategorie(categor)
   }
 
 
@@ -49,9 +73,14 @@ function App() {
     <div className="App">
       <Header order={order} />
       <Routes>
-        <Route path="/basket" element={<Basket goodsInBasket={goodsInBasket} />} />
+        <Route path="/basket" element={<Basket onDelProductBasket={onDelProductBasket} goodsInBasket={goodsInBasket} />} />
         <Route path="/" element={
-          <div className='container shop-items'>
+          <div className='app-container shop-wrapper'>
+            {
+              modalAddToBasket ?
+                <Modaladdbasket />
+                : null
+            }
             <div className='shop-items' >
               {
                 !loader ?
@@ -59,16 +88,16 @@ function App() {
                   <>
                     <ul className='categorie'>
                       {
-                        shop.map(categorie => {
-                          console.log(categorie.categories[0]);
-                          return (
-                            <li>{categorie.categories[0]}</li>
-                          )
-                        })
-
+                        typeProduct.map(categorie => <li
+                          onClick={() => {
+                            onFilterCategorieGoods(categorie)
+                          }}
+                          key={categorie}>
+                          {categorie}
+                        </li>)
                       }
                     </ul>
-                    <Goods shop={shop} onOrderCart={onOrder} />
+                    <Goods shop={shop} shopCategorie={categorie} onOrderCart={onOrder} goodsInBasket={goodsInBasket} />
                   </>
 
               }
@@ -76,10 +105,6 @@ function App() {
           </div>
         } />
       </Routes>
-
-
-
-
       <Footer />
 
     </div>

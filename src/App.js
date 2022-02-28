@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Preloader from './components/Preloader';
 import { Routes, Route } from "react-router-dom";
 import Modaladdbasket from './components/ModalAddBasket';
+import Menu from './components/Menu';
 
 
 
@@ -86,17 +87,7 @@ function App() {
                 !loader ?
                   <Preloader /> :
                   <>
-                    <ul className='categorie'>
-                      {
-                        typeProduct.map(categorie => <li
-                          onClick={() => {
-                            onFilterCategorieGoods(categorie)
-                          }}
-                          key={categorie}>
-                          {categorie}
-                        </li>)
-                      }
-                    </ul>
+                    <Menu typeProduct={typeProduct} onFilterCategorieGoods={onFilterCategorieGoods} />
                     <Goods shop={shop} shopCategorie={categorie} onOrderCart={onOrder} goodsInBasket={goodsInBasket} />
                   </>
 

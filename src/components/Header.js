@@ -2,6 +2,7 @@ import React from 'react';
 import Cart from './Cart';
 import { NavLink } from 'react-router-dom';
 
+
 const Header = ({ order }) => {
     return (
         <header className='header'>

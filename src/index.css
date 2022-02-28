@@ -26,10 +26,10 @@ code {
   max-width: 1140px;
   width: 100%;
   padding: 0 10px;
-  margin: 100px auto 0;
+  margin: 50px auto 0;
 }
 .header{
-  position: fixed;
+  position: sticky;
   width: 100%;
   z-index: 10;
   top: 0;
@@ -38,6 +38,7 @@ code {
   flex: 1;
 
 }
+
 
 .shop-items{
   display: flex;
@@ -93,7 +94,7 @@ code {
 .btn-buy.btn-floating.halfway-fab{
   position: static;
   width: 120px;
-  border-radius: 15px;
+  border-radius: 0px;
   text-align: center;
   color: rgb(255, 255, 255);
 
@@ -182,22 +183,47 @@ code {
 .categorie{
   display: flex;
   flex-wrap: wrap;
-  margin: 20px 0 50px;
+  width: 100%;
+  justify-content: center;
+  transition: all 0.5s;
+  margin-bottom: 30px;
+  padding: 15px 0;
+  border-top: 1px solid #448fe4;
+  border-bottom: 1px solid #448fe4;
+}
+
+.categorie li {
+  padding: 2px 5px;
+  margin: 5px 5px;
+  cursor: pointer;
+  transition: all 0.5s;
+  font-weight: 600;
+  color: #000000;
+  background-color: rgba(72, 143, 224, 0.1);
+  border: 1px solid #abcbf5;
+  transition: all 0.5s;
+
+  font-weight: 600;
+}
+.categorie li:hover{
+  background-color: rgba(72, 143, 224, 0.4);
+  color: rgb(24, 26, 26);
+}
+
+.categorie li.active{
+  background-color: rgba(72, 143, 224, 0.8);
+  color: azure;
+}
+.categorie.active{
+  display: flex;
+  justify-content: left;
+  transform: translateX(0%);
+}
+.categorie-wrapper{
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
   width: 100%;
   justify-content: center;
 }
 
-.categorie li {
-  border: 1px dashed #1565C0;
-  border-radius: 25px;
-  padding: 5px;
-  background: rgba(21, 101, 192, 0.1);
-  margin: 5px 10px;
-  cursor: pointer;
-  box-shadow: 4px 7px 12px 0px rgba(0,0,0, .1);
-  transition: all 0.5s;
-}
-.categorie li:hover{
-  transform: translateY(-2px);
-  box-shadow: 4px 7px 12px 0px rgba(0,0,0, .3);
-}

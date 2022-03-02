@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 
 const Menu = ({ typeProduct, onFilterCategorieGoods }) => {
 
-    const activeClassAddDel = () => {
+    const [categorie, setCategorie] = useState([]);
 
-        document.querySelectorAll('.categorie li').forEach(el => {
-            console.log(el.innerText);
-            if (el.classList.contains('active')) {
-                el.classList.remove('active')
+
+    useEffect(() => {
+        const arr = []
+        for (let i = 0; i < typeProduct.length; i++) {
+            // Первому 
+            if (typeProduct[i] === 'Все товары') {
+                arr.push({ name: typeProduct[i], active: true })
+            } else {
+                arr.push({ name: typeProduct[i], active: false })
             }
+        }
+        setCategorie([...arr])
+    }, []);
 
-        })
+
+
+    const activeClassAddDel = (name) => {
+        categorie.filter(el => el.active ? el.active = false : null);
+        const elem = categorie.find(el => el.name === name)
+        elem.active = true;
     }
 
     return (
@@ -18,29 +32,27 @@ const Menu = ({ typeProduct, onFilterCategorieGoods }) => {
             <div className='categorie-wrapper'>
                 <ul className={`categorie`}>
                     {
-                        typeProduct.map(categorie => {
-
+                        categorie.map(categorie => {
                             return (
                                 <li
                                     onClick={(e) => {
-                                        onFilterCategorieGoods(categorie)
-                                        activeClassAddDel()
-                                        e.target.classList.add('active')
+                                        onFilterCategorieGoods(categorie.name)
+                                        activeClassAddDel(categorie.name)
                                     }}
-                                    key={categorie}
-                                    className={''}
+                                    key={categorie.name}
+                                    className={categorie.active ? 'active' : ''}
                                 >
-                                    {categorie}
+                                    {categorie.name}
 
                                 </li>
                             )
+
                         })
+
+
                     }
+
                 </ul>
-
-
-
-
             </div>
         </div>
 

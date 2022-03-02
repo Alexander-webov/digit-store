@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import Basket from './components/Basket';
+import { Routes, Route } from "react-router-dom";
+
+import Basket from './page/Basket';
+
+import Header from './components/Header';
 import Footer from './components/Footer';
 import Goods from './components/Goods';
-import Header from './components/Header';
 import Preloader from './components/Preloader';
-import { Routes, Route } from "react-router-dom";
 import Modaladdbasket from './components/ModalAddBasket';
 import Menu from './components/Menu';
+import User from './page/User';
+import Contact from './page/Contact';
 
 
 
 function App() {
   const [shop, setshop] = useState([]);
+
   const [goodsInBasket, setGoodsInBasket] = useState([]);
   const [typeProduct, setTypeProduct] = useState([]);
   const [loader, setloader] = useState(false);
@@ -21,21 +26,31 @@ function App() {
 
 
 
+
   useEffect(() => {
-    fetch('https://fortniteapi.io/v2/shop?lang=ru', {
-      headers: {
-        Authorization: 'd2ef5ba7-436bb90f-e92b4526-17a2b707',
-      }
-    }).then(data => data.json())
-      .then(data => {
-        setshop(data.shop.splice(0, 20))
-        setloader(true)
+    const data = async () => {
+      const res = await fetch('https://fortniteapi.io/v2/shop?lang=ru', {
+        headers: {
+          Authorization: 'd2ef5ba7-436bb90f-e92b4526-17a2b707',
+        }
       })
+      const data = await res.json()
+
+      //Добавления доп. значения в объект btnActive для дальнейшей работы с кнопками в карточках товара
+      const arrBtnShow = []
+      data.shop.map(el => arrBtnShow.push({ ...el, btnActive: false }))
+      setshop([...arrBtnShow])
+      setloader(true)
+
+    }
+    data()
   }, [])
+
 
   useEffect(() => {
     setTypeProduct(['Все товары', ...new Set(shop.map(type => type.displayType))])
   }, [shop])
+
 
 
 
@@ -50,9 +65,22 @@ function App() {
       cost: price
     }
     setGoodsInBasket(rev => [...rev, newObjInBasket])
-
     setModalAddToBasket(true)
+
+    const indexEl = shop.findIndex(el => {
+      return el.mainId === id
+    })
+    const findEl = shop.slice(indexEl, indexEl + 1)
+    findEl[0].btnActive = true;
+
+    const firstArr = shop.slice(0, indexEl)
+    const lasttArr = shop.slice(indexEl + 1)
+    setshop([...firstArr, ...findEl, ...lasttArr])
   }
+
+
+
+
   if (modalAddToBasket) {
     setTimeout(() => {
       setModalAddToBasket(false)
@@ -63,6 +91,24 @@ function App() {
     const filterArrGoodsInBasket = goodsInBasket.filter(prod => prod.id !== id)
     setGoodsInBasket([...filterArrGoodsInBasket])
     setOrder(goodsInBasket.length - 1)
+
+    const indexEl = shop.findIndex(el => {
+      return el.mainId === id
+    })
+    const findEl = shop.slice(indexEl, indexEl + 1)
+    findEl[0].btnActive = false;
+
+    const firstArr = shop.slice(0, indexEl)
+    const lasttArr = shop.slice(indexEl + 1)
+    setshop([...firstArr, ...findEl, ...lasttArr])
+
+
+
+
+
+
+
+
   }
 
   const onFilterCategorieGoods = (categor) => {
@@ -70,11 +116,14 @@ function App() {
   }
 
 
+
   return (
     <div className="App">
       <Header order={order} />
       <Routes>
         <Route path="/basket" element={<Basket onDelProductBasket={onDelProductBasket} goodsInBasket={goodsInBasket} />} />
+        <Route path="/user" element={<User />} />
+        <Route path="/contacts" element={<Contact />} />
         <Route path="/" element={
           <div className='app-container shop-wrapper'>
             {

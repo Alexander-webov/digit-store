@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 
-const Goods = ({ shop, onOrderCart, shopCategorie, goodsInBasket }) => {
+const els = ({ shop, onOrderCart, shopCategorie, elsInBasket }) => {
+
+    console.log(shop);
     return (
         <>
             {
@@ -10,59 +12,66 @@ const Goods = ({ shop, onOrderCart, shopCategorie, goodsInBasket }) => {
                 })
                     .map((el) => {
                         return (
-                            el.granted.map((good) => {
-                                return (
-                                    <div key={good.id} className='shop-item'>
-                                        <div className="card">
-
-                                            <div className="card-image">
-
-                                                <img src={good.images.background} alt="" />
-                                                <div className="card-title">
-
-                                                    {good.name}
-                                                    <span>Категория: {el.displayType}</span>
-                                                </div>
-                                            </div>
-                                            <div className="card-content">
-                                                <p>{good.description}</p>
-                                                <div className='price'>
-                                                    <div className="price-box">
-                                                        <div className='price-new'>
-                                                            <span> {el.price.finalPrice} руб.</span>
-                                                        </div>
-                                                        <div className='price-old'>
-                                                            {
-                                                                el.price.finalPrice !== el.price.regularPrice && <span>{el.price.regularPrice} руб.</span>
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                    <span
-                                                        className="btn-buy btn-floating halfway-fab waves-effect waves-light red"
-                                                        onClick={() => onOrderCart(
-                                                            good.id,
-                                                            good.name,
-                                                            good.description,
-                                                            el.price.finalPrice,
-                                                            good.images.background
-                                                        )}>
-                                                        В корзину
-                                                    </span>
-                                                </div>
-                                            </div>
+                            <div key={el.mainId} className='shop-item'>
+                                <div className="card">
+                                    <div className="card-image">
+                                        <img src={el.displayAssets[0].background} alt="" />
+                                        <div className="card-title">
+                                            {el.displayName}
+                                            <span>Категория: {el.displayType}</span>
                                         </div>
                                     </div>
-                                )
-                            }
-                            )
+                                    <div className="card-content">
+                                        <p>{el.displayDescription}</p>
+                                        <div className='price'>
+                                            <div className="price-box">
+                                                <div className='price-new'>
+                                                    <span> {el.price.finalPrice} руб.</span>
+                                                </div>
+                                                <div className='price-old'>
+                                                    {
+                                                        el.price.finalPrice !== el.price.regularPrice && <span>{el.price.regularPrice} руб.</span>
+                                                    }
+                                                </div>
+                                            </div>
+                                            {
+                                                el.btnActive
+                                                    ?
+                                                    <span
+                                                        className="btn-buy btn-floating halfway-fab btn-disable"
+                                                    >
+                                                        Уже добавлен
+                                                    </span>
+                                                    :
+                                                    <span
+                                                        className="btn-buy btn-floating halfway-fab waves-effect waves-light red"
+                                                        onClick={() => {
+                                                            onOrderCart(
+                                                                el.mainId,
+                                                                el.displayName,
+                                                                el.displayDescription,
+                                                                el.price.finalPrice,
+                                                                el.displayAssets[0].background
+                                                            )
+                                                        }}
+                                                    >
+                                                        В корзину
+                                                    </span>
 
+                                            }
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         )
-
 
                     })
             }
+
         </>
     );
 }
 
-export default Goods;
+export default els;

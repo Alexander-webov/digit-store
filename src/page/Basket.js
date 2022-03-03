@@ -4,9 +4,6 @@ import { NavLink } from 'react-router-dom';
 const Basket = ({ goodsInBasket, onDelProductBasket }) => {
 
     const costResult = goodsInBasket.reduce((sum, cost) => sum + cost.cost, 0)
-
-
-    console.log(costResult);
     return (
         <div className='app-container'>
             {

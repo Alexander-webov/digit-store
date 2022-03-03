@@ -16,12 +16,12 @@ import Contact from './page/Contact';
 
 function App() {
   const [shop, setshop] = useState([]);
-
   const [goodsInBasket, setGoodsInBasket] = useState([]);
   const [typeProduct, setTypeProduct] = useState([]);
   const [loader, setloader] = useState(false);
   const [order, setOrder] = useState(0);
   const [categorie, setCategorie] = useState('Все товары');
+  const [searchProduct, setSearchProduct] = useState('');
   const [modalAddToBasket, setModalAddToBasket] = useState(false);
 
 
@@ -49,6 +49,7 @@ function App() {
 
   useEffect(() => {
     setTypeProduct(['Все товары', ...new Set(shop.map(type => type.displayType))])
+
   }, [shop])
 
 
@@ -115,11 +116,15 @@ function App() {
     setCategorie(categor)
   }
 
+  const onClickSearchProduct = (text) => {
+    setSearchProduct(text)
+
+  }
 
 
   return (
     <div className="App">
-      <Header order={order} />
+      <Header order={order} searchProduct={onClickSearchProduct} />
       <Routes>
         <Route path="/basket" element={<Basket onDelProductBasket={onDelProductBasket} goodsInBasket={goodsInBasket} />} />
         <Route path="/user" element={<User />} />
@@ -137,7 +142,7 @@ function App() {
                   <Preloader /> :
                   <>
                     <Menu typeProduct={typeProduct} onFilterCategorieGoods={onFilterCategorieGoods} />
-                    <Goods shop={shop} shopCategorie={categorie} onOrderCart={onOrder} goodsInBasket={goodsInBasket} />
+                    <Goods shop={shop} shopCategorie={categorie} onOrderCart={onOrder} goodsInBasket={goodsInBasket} searchProduct={searchProduct} />
                   </>
 
               }

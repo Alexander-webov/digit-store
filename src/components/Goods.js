@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 
-const els = ({ shop, onOrderCart, shopCategorie, elsInBasket }) => {
-
-    console.log(shop);
+const els = ({ shop, onOrderCart, shopCategorie, searchProduct }) => {
     return (
         <>
             {
                 shop.filter(item => {
                     return shopCategorie === 'Все товары' ? item : item.displayType.includes(shopCategorie)
-                })
+                }).filter(search => search.displayName.toLowerCase().includes(searchProduct.toLowerCase()))
                     .map((el) => {
                         return (
                             <div key={el.mainId} className='shop-item'>

@@ -34,6 +34,19 @@ code {
   z-index: 10;
   top: 0;
 }
+
+.header__search-btn{
+  transition: background-color .3s;
+  font-size: 1rem;
+  color: #fff;
+  display: block;
+  padding: 0 15px;
+  cursor: pointer;
+}
+
+
+
+
 .shop-wrapper{
   flex: 1;
 }
@@ -107,12 +120,46 @@ code {
 .nav-wrapper{
   max-width: 1180px;
     margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
 }
 .card .card-image .card-title{
   width: 100%;
   padding: 15px;
+
   background-color: rgba(0,0,0, .5);
 }
+
+.search{
+  flex: 1;
+  margin-left: 40px;
+  margin-right: 60px;
+  position: relative;
+
+}
+.search__icon{
+  position: absolute;
+  left: 7px;
+}
+
+input.search__input{
+  padding-left: 35px  !important;
+  color: azure !important;
+  height: 2.4rem !important;
+  background-color: #3d81cf !important;
+  border: none !important;
+  border-radius: 25px !important;
+
+}
+
+
+
+nav .brand-logo{
+  position: relative;
+}
+
+
+
 .card-title span{
   display: block;
   font-size: 14px;
@@ -137,6 +184,19 @@ code {
   justify-content: space-between;
   flex-direction: column;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .basket__wrapper{
   max-width: 800px;
@@ -271,6 +331,7 @@ margin-left: 10px;
 
 
 
+
 /* MODAL */
 .modal-info{
   position: fixed;
@@ -287,8 +348,7 @@ margin-left: 10px;
   text-align: center;
   animation-duration: 4s;
   animation-name: showBottom;
- 
-}
+ }
 
 @keyframes showBottom {
   0% {
